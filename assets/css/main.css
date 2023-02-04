@@ -1,0 +1,11 @@
+@import "./custom.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .tw-container {
+    @apply m-auto md:max-w-2xl lg:max-w-2xl xl:max-w-3xl
+  }
+}
