@@ -15,7 +15,7 @@ watch(chats, async () => {
     <AppHeader class="h-16" />
     <div
       ref="chatwrapper"
-      class="chat-body h-[calc(100vh-4rem-3rem)] md:h-[calc(100vh-4rem)] overflow-auto bg-grey relative scroll-smooth"
+      class="chat-body h-[calc(100vh-4rem)] overflow-auto bg-grey relative scroll-smooth"
     >
       <slot />
     </div>

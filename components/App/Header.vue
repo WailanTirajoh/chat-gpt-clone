@@ -2,6 +2,6 @@
 
 <template>
   <header class="bg-grey-700 shadow-md">
-    <div class="p-4 tw-container">Header</div>
+    <div class="p-4 tw-container font-bold text-lg">Chat GPT Clone</div>
   </header>
 </template>

@@ -52,6 +52,9 @@ async function sendMessage() {
     // TODO: Add logic to handle
   } finally {
     isFetching.value = false;
+    nextTick(() => {
+      textinput.value.focus();
+    });
   }
 }
 
