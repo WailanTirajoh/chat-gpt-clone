@@ -11,14 +11,13 @@ watch(chats, async () => {
 });
 </script>
 <template>
-  <div class="bg-grey-600 w-full h-[100vh] text-gray-200 md:pl-[260px]">
-    <AppHeader class="h-16" />
-    <div
+  <div class="bg-grey-700 w-full h-[100vh] text-gray-200 md:pl-[260px]">
+    <main
       ref="chatwrapper"
-      class="chat-body h-[calc(100vh-4rem)] overflow-auto bg-grey relative scroll-smooth"
+      class="chat-body h-full overflow-auto bg-grey relative scroll-smooth"
     >
       <slot />
-    </div>
+    </main>
   </div>
   <AppNavbar />
 </template>
