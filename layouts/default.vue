@@ -2,8 +2,8 @@
 import { useLocalStorage } from "@vueuse/core";
 import { ChatList } from "~~/types/chat";
 
-const chatList: ChatList = [];
-const chats = useLocalStorage("chat-list", chatList);
+const chat = useChat();
+const chats = chat.chats;
 const chatwrapper = ref();
 watch(chats, async () => {
   await new Promise((resolve) => setTimeout(resolve, 500));
