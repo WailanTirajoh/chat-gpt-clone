@@ -1,6 +1,9 @@
-# Nuxt 3 Minimal Starter
+# Chat GPT Clone
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Chat GPT clone build with Nuxt 3 & OpenAPI
+
+## Preview
+![alt text](https://github.com/WailanTirajoh/chat-gpt-clone/blob/main/cgptclone.jpg?raw=true)
 
 ## Setup
 
@@ -15,6 +18,11 @@ npm install
 
 # pnpm
 pnpm install
+```
+
+## env
+```
+cp .env.example .env
 ```
 
 ## Development Server
