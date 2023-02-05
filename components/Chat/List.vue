@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { useLocalStorage } from "@vueuse/core";
-import { ChatList } from "~~/types/chat";
-
-// persist state in localStorage
-const chatList: ChatList = [];
-const chats = useLocalStorage("chat-list", chatList);
+const route = useRoute();
+const { list: chats } = useChat();
+const roomId = route.params.id.toString();
 </script>
 <template>
   <ul class="pb-6">
@@ -14,9 +11,6 @@ const chats = useLocalStorage("chat-list", chatList);
       :key="chat.id"
     >
       <div class="p-4 tw-container flex gap-4">
-        <!-- <div class="font-bold">
-          {{ chat.from }}
-        </div> -->
         <div class="w-[30px]">
           <div
             class="p-1 rounded-sm flex items-center justify-center"

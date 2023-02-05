@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { Chat } from "~~/types/chat";
 
+const room = useRoom();
 const chat = useChat();
+const route = useRoute();
+const router = useRouter();
+
 const textinput = ref();
 const inputValue = ref();
 const isFetching = ref(false);
@@ -13,55 +17,32 @@ function inputHandler() {
 async function sendMessage() {
   if (!inputValue.value) return;
 
-  const questionId = generateId();
-  const groupId = generateId();
-  const humanChat: Chat = {
-    id: generateId(),
-    from: "Wailan",
-    message: inputValue.value,
-    loading: false,
-    sender: "human",
-    groupId: groupId,
-  };
-  chat.addMessage(humanChat);
+  let roomId = route.params.id;
+  const id = useId();
 
-  const botChat: Chat = {
-    id: generateId(),
-    from: "OpenAI",
-    message: "",
-    loading: true,
-    replyId: questionId,
-    sender: "bot",
-    groupId: groupId,
-  };
-  chat.addMessage(botChat);
+  // Create room if room doesnt exists
+  if (!roomId) {
+    room.setCreateRoom(true);
+    roomId = id.generateId();
+    room.addRoom({
+      id: roomId,
+      title: `New room ${room.rooms.value.length + 1}`,
+      createdAt: new Date().getTime(),
+    });
+  }
+  const message = inputValue.value;
+  inputValue.value = null;
 
   try {
-    isFetching.value = true;
-    const payload = {
-      message: inputValue.value,
-    };
-    inputValue.value = null;
-    const response = await $fetch("/api/openai/post-message", {
-      method: "POST",
-      body: payload,
-    });
-
-    botChat.message = response.data?.message || "Could not detect any message";
-    botChat.loading = false;
-    chat.updateMessage(botChat, botChat.id);
+    await chat.sendChatToBot(message, roomId.toString());
   } catch {
-    // TODO: Add logic to handle
-    if (botChat) {
-      botChat.message = "There's an issue while generating message";
-      botChat.loading = false;
-      chat.updateMessage(botChat, botChat.id);
-    }
   } finally {
     isFetching.value = false;
+    room.setCreateRoom(false);
     nextTick(() => {
       textinput.value.focus();
     });
+    if (!route.params.id) router.push(`/chat/${roomId}`);
   }
 }
 
@@ -72,10 +53,6 @@ function inputHeightHandler() {
   if (textinput.value.scrollHeight > maxHeight)
     textinput.value.style.height = maxHeight + "px";
   else textinput.value.style.height = textinput.value.scrollHeight + "px";
-}
-
-function generateId() {
-  return Math.random().toString(36).substr(2, 9);
 }
 </script>
 
@@ -94,6 +71,7 @@ function generateId() {
         rows="1"
         :placeholder="isFetching ? 'Thinking . . .' : 'Type something...'"
         :disabled="isFetching"
+        @keydown.enter.exact.prevent="sendMessage"
         @input="inputHandler"
       />
 
