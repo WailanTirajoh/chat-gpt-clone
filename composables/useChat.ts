@@ -1,31 +1,47 @@
 import { useLocalStorage } from "@vueuse/core";
 import { Chat, ChatList } from "~~/types/chat";
 
+const chatInput = ref();
 export const useChat = () => {
   const route = useRoute();
   const chatList: ChatList = [];
   const chats = useLocalStorage("chats", chatList);
+
   const list = computed(() => {
     return chats.value.filter(
       (chat) => chat.roomId === route.params.id.toString()
     );
   });
 
-  function addMessage(chat: Chat) {
+  function addMessage(chat: Chat): void {
     chats.value.push(chat);
   }
 
-  function removeMessage(chatId: string) {
-    const index = chats.value.findIndex((obj) => obj.id === chatId);
-    chats.value.splice(index, 1);
+  function removeMessage(chatId: string | Array<string>): void {
+    switch (typeof chatId) {
+      case "string": {
+        const index = chats.value.findIndex((chat) => chat.id === chatId);
+        chats.value.splice(index, 1);
+        break;
+      }
+      case "object": {
+        chats.value
+          .filter((chat) => chatId.includes(chat.id))
+          .map((r) => {
+            const index = chats.value.findIndex((chat) => chat.id === r.id);
+            chats.value.splice(index, 1);
+          });
+        break;
+      }
+    }
   }
 
-  function updateMessage(chat: Chat, chatId?: string) {
+  function updateMessage(chat: Chat, chatId?: string): void {
     const index = chats.value.findIndex((obj) => obj.id === chatId);
     chats.value[index] = chat;
   }
 
-  async function sendChatToBot(message: string, roomId: string) {
+  async function sendChatToBot(message: string, roomId: string): Promise<void> {
     const id = useId();
     const questionId = id.generateId();
     const humanChat: Chat = {
@@ -39,7 +55,7 @@ export const useChat = () => {
     };
 
     addMessage(humanChat);
-    const prompMessage = generatePrompt(roomId)
+    const prompMessage = generatePrompt(roomId);
     const botChat: Chat = {
       id: id.generateId(),
       from: "OpenAI",
@@ -88,23 +104,24 @@ export const useChat = () => {
         };
       });
 
-    for(const chatlist of chatLists) {
+    for (const chatlist of chatLists) {
       promptResult += `
         From: ${chatlist.from}
         ${chatlist.type}: ${chatlist.message}
-      `
+      `;
     }
 
     promptResult += `
       Answer the last question based on that "Me (Question) and You (Answer)" provided below. Dont use From: You And Answer. Dont use Answer:
-    `
+    `;
 
-    return promptResult
+    return promptResult;
   }
 
   return {
-    chats,
-    list,
+    chatInput,
+    chats: readonly(chats),
+    list: readonly(list),
     addMessage,
     removeMessage,
     updateMessage,

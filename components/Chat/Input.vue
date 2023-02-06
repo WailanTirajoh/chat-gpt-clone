@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { Chat } from "~~/types/chat";
-
 const room = useRoom();
 const chat = useChat();
 const route = useRoute();
 const router = useRouter();
 
 const textinput = ref();
-const inputValue = ref();
+const inputValue = chat.chatInput;
 const isFetching = ref(false);
 
 function inputHandler() {
@@ -110,9 +108,6 @@ function inputHeightHandler() {
           </svg>
         </button>
       </form>
-      <div class="text-grey-400 text-xs text-center pb-2">
-        ChatGPT Clone. Powered by <b class="text-grey-300"> OPEN AI </b>
-      </div>
     </div>
   </div>
 </template>
