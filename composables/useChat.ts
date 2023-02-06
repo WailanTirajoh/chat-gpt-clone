@@ -122,6 +122,10 @@ export const useChat = () => {
     chatInput.value = null;
   }
 
+  function removeAllMessages() {
+    chats.value = []
+  }
+
   // Clear selected room whenever root changes
   watch(
     () => route.params,
@@ -136,6 +140,7 @@ export const useChat = () => {
     list: readonly(list),
     addMessage,
     removeMessage,
+    removeAllMessages,
     updateMessage,
     sendChatToBot,
   };

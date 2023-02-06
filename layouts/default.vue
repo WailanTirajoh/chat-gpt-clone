@@ -11,7 +11,7 @@ watch(chats, async () => {
 });
 </script>
 <template>
-  <div class="bg-grey-700 w-full h-[100vh] text-gray-200 md:pl-[260px]">
+  <div class="dark:bg-grey-700 w-full h-[100vh] text-gray-800 dark:text-gray-200 md:pl-[260px]">
     <main
       ref="chatwrapper"
       class="chat-body h-full overflow-auto bg-grey relative scroll-smooth"

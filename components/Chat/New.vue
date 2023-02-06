@@ -103,11 +103,13 @@ function selectExample(text: string) {
 }
 </script>
 <template>
-  <div class="grid place-items-center h-full">
+  <div
+    class="text-gray-800 w-full md:max-w-2xl lg:max-w-3xl md:h-full md:flex md:flex-col items-center my-auto mx-auto px-6 dark:text-gray-100"
+  >
     <div class="" v-if="creatingRoom">
       Please wait while generating room & conversation . . .
     </div>
-    <div class="p-4" v-else>
+    <div class="p-4 my-auto" v-else>
       <div class="text-center grid gap-5">
         <div class="h-20">
           <h1 class="text-4xl font-semibold">ChatGPT</h1>
@@ -126,10 +128,11 @@ function selectExample(text: string) {
               <div
                 :tabindex="list.title === 'Examples' ? 0 : undefined"
                 :role="list.title === 'Examples' ? 'button' : undefined"
-                class="bg-grey-650 p-3 rounded-md"
+                class="bg-gray-50 dark:bg-grey-650 p-3 rounded-md"
                 v-for="child in list.childs"
                 :class="{
-                  'hover:bg-grey-900 cursor-pointer': list.title === 'Examples',
+                  'hover:bg-gray-200 dark:hover:bg-grey-900 cursor-pointer':
+                    list.title === 'Examples',
                 }"
                 :key="child.message"
                 @click="

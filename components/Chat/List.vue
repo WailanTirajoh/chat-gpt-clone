@@ -6,14 +6,14 @@ const roomId = route.params.id.toString();
 <template>
   <ul class="pb-6">
     <li
-      class="even:bg-grey-600 even:!border-grey-800 even:!border-y"
+      class="even:bg-gray-50 dark:even:bg-grey-600 dark:even:!border-grey-800 even:!border-y"
       v-for="chat in chats"
       :key="chat.id"
     >
       <div class="p-4 tw-container flex gap-4">
         <div class="w-[30px]">
           <div
-            class="p-1 rounded-sm flex items-center justify-center"
+            class="p-1 rounded-sm flex items-center justify-center text-gray-200"
             :class="{
               'bg-[#10a37f]': chat.sender === 'bot',
               'bg-grey-600': chat.sender === 'human',

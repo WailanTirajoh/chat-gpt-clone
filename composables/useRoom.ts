@@ -29,6 +29,10 @@ export const useRoom = () => {
     }
   }
 
+  function removeAllRooms() {
+    rooms.value = [];
+  }
+
   function updateRoom(room: Room, roomId?: string): void {
     const index = rooms.value.findIndex((obj) => obj.id === roomId);
     rooms.value[index] = room;
@@ -43,6 +47,7 @@ export const useRoom = () => {
     creatingRoom,
     addRoom,
     removeRoom,
+    removeAllRooms,
     updateRoom,
     setCreateRoom,
   };

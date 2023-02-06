@@ -56,16 +56,13 @@ function inputHeightHandler() {
 
 <template>
   <div>
-    <div class="tw-container grid gap-2">
-      <form
-        @submit.prevent="sendMessage"
-        class="bg-grey-500 border-grey-900 shadow-lg rounded-lg relative"
-      >
+    <div class="tw-container grid gap-2 pt-2 ">
+      <form class="relative" @submit.prevent="sendMessage">
         <textarea
           v-bind="$attrs"
           v-model="inputValue"
           type="text"
-          class="chat-input bg-grey-500 text-white p-2 rounded focus:outline-none focus:outline-2 w-full resize-none disabled:bg-gray-700"
+          class="chat-input dark:bg-grey-500 dark:text-white p-2 focus:outline-none focus:outline-2 w-full resize-none disabled:bg-gray-700 border dark:border-grey-200 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] rounded-lg "
           ref="textinput"
           rows="1"
           :placeholder="isFetching ? 'Thinking . . .' : 'Type something...'"
@@ -74,7 +71,7 @@ function inputHeightHandler() {
           @input="inputHandler"
         />
 
-        <button class="absolute right-2 bottom-3 text-grey-400">
+        <button class="absolute right-2 bottom-4 text-grey-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
