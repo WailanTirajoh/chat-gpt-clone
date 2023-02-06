@@ -4,7 +4,7 @@ const { list: chats } = useChat();
 const roomId = route.params.id.toString();
 </script>
 <template>
-  <ul class="pb-6">
+  <ul class="pb-28">
     <li
       class="even:bg-gray-50 dark:even:bg-grey-600 dark:even:!border-grey-800 even:!border-y"
       v-for="chat in chats"

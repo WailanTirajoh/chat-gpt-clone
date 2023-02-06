@@ -99,7 +99,7 @@ export const useChat = () => {
       .map((sortedChat) => {
         return {
           from: sortedChat.sender === "bot" ? "You" : "Me",
-          type: sortedChat.sender === "bot" ? "Answer" : "Question",
+          type: sortedChat.sender === "bot" ? "A" : "Q",
           message: sortedChat.message,
         };
       });
@@ -107,12 +107,13 @@ export const useChat = () => {
     for (const chatlist of chatLists) {
       promptResult += `
         From: ${chatlist.from}
-        ${chatlist.type}: ${chatlist.message}
+        Message: ${chatlist.message}
       `;
     }
 
     promptResult += `
-      Answer the last question based on that "Me (Question) and You (Answer)" provided below. Dont use From: You And Answer. Dont use Answer:
+      NOTE:
+      The conversation below is our conversation, please answer the last question from Me and provide your answer. Do not use me and you on your answer. Do not use From: and Message: on your answer. Do not use Answer: on your answer. Just say the answer without specify the subject.
     `;
 
     return promptResult;
