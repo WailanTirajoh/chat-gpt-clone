@@ -118,6 +118,18 @@ export const useChat = () => {
     return promptResult;
   }
 
+  function clearInput() {
+    chatInput.value = null;
+  }
+
+  // Clear selected room whenever root changes
+  watch(
+    () => route.params,
+    async () => {
+      clearInput();
+    }
+  );
+
   return {
     chatInput,
     chats: readonly(chats),
