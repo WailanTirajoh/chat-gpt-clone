@@ -25,6 +25,12 @@ pnpm install
 cp .env.example .env
 ```
 
+## env variable
+```
+# Add your open api key here
+OPENAI_API_KEY=
+```
+
 ## Development Server
 
 Start the development server on http://localhost:3000
